@@ -2,26 +2,26 @@ package com.example.appcomparador.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
-import com.example.appcomparador.R
-import com.example.appcomparador.viewmodel.CompareViewModel
-
+import com.example.appcomparador.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var compareViewModel: CompareViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val viewModel = ViewModelProvider(this).get(CompareViewModel::class.java)
+        compareViewModel = ViewModelProvider(this).get(CompareViewModel::class.java)
 
-        val compareButton = findViewById<Button>(R.id.compareButton)
-        val clearButton = findViewById<Button>(R.id.clearButton)
-        compareButton.setOnClickListener {
-            viewModel.compareTexts()
+        compareViewModel.compare.observe(this) { compareResult ->
+            binding.resultTextView.text = compareResult.result
         }
 
-        clearButton.setOnClickListener {
-            viewModel.clearFields()
+        binding.compareButton.setOnClickListener {
+            compareViewModel.compareTexts(binding.editText1.text.toString(), binding.editText2.text.toString())
         }
+
     }
 }

@@ -1,10 +1,10 @@
 package com.example.appcomparador
 
-import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -21,14 +21,81 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class CompareActivityTest {
-    @get:Rule
-    var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
+    @get: Rule
+    val rule: ActivityScenarioRule<*> = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testCompareButton() {
-        onView(withId(R.id.editText1)).perform(typeText("hello"))
-        onView(withId(R.id.editText2)).perform(typeText("world"))
-        onView(withId(R.id.compareButton)).perform(click())
-        onView(withId(R.id.resultTextView)).check(matches(withText("Las cadenas no son iguales")))
+    fun mainActivity_comparatorTextsEqual() {
+        Espresso.onView(
+            ViewMatchers.withId(R.id.editText1)
+        ).perform(
+            typeText("hello")
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.editText2)
+        ).perform(
+            typeText("hello")
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.compareButton)
+        ).perform(
+            click()
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.resultTextView)
+        ).check(
+            matches(
+                withText("Los textos son iguales")
+            )
+        )
+    }
+
+    @Test
+    fun mainActivity_comparatorTextsNoEqual() {
+        Espresso.onView(
+            ViewMatchers.withId(R.id.editText1)
+        ).perform(
+            typeText("hello")
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.editText2)
+        ).perform(
+            typeText("HELLO")
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.compareButton)
+        ).perform(
+            click()
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.resultTextView)
+        ).check(
+            matches(
+                withText("Los textos NO son iguales")
+            )
+        )
+    }
+
+    @Test
+    fun mainActivity_comparatorTextsVoid() {
+        Espresso.onView(
+            ViewMatchers.withId(R.id.compareButton)
+        ).perform(
+            click()
+        )
+
+        Espresso.onView(
+            ViewMatchers.withId(R.id.resultTextView)
+        ).check(
+            matches(
+                withText("Los textos son iguales")
+            )
+        )
     }
 }

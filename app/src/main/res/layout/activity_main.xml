@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MainActivity">
+
     <data>
         <variable
             name="viewModel"
-            type="com.example.viewmodel.CompareViewModel" />
+            type="com.example.appcomparador.view.CompareViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#CADC1A"
-        android:backgroundTint="?android:attr/detailsElementBackground">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MainActivity"
+    android:background="#CADC1A"
+    android:backgroundTint="?android:attr/detailsElementBackground">
+
+
 
         <EditText
             android:id="@+id/editText1"
             android:layout_width="259dp"
             android:layout_height="74dp"
             android:hint="Texto 1"
-            android:text="@={viewModel.text1}"
+            android:text="@{ViewModel.text1}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,58 +41,49 @@
             android:layout_width="253dp"
             android:layout_height="70dp"
             android:hint="Texto 2"
-            android:text="@={viewModel.text2}"
+            android:text="@{ViewModel.text2}"
             app:layout_constraintBottom_toTopOf="@+id/compareButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText1" />
 
-        <Button
-            android:id="@+id/compareButton"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginStart="146dp"
-            android:layout_marginTop="406dp"
-            android:layout_marginEnd="74dp"
-            android:layout_marginBottom="165dp"
-            android:onClick="@{() -> viewModel.compareTexts()}"
-            android:shadowColor="#00BCD4"
-            android:text="Comparar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/compareButton"
+        android:layout_width="149dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="406dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="165dp"
+        android:onClick="@{() -> viewModel.compareTexts(editText1)}"
+        android:shadowColor="#00BCD4"
+        android:text="Comparar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/clearButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.clearFields()}"
-            android:text="Limpiar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/compareButton" />
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="146dp"
+        android:text="@{viewModel.result}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/compareButton"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/resultTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="146dp"
-            android:text="@{viewModel.result}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/compareButton" />
-
-        <TextView
+    <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
-            android:accessibilityTraversalBefore="@id/clearButton"
             android:background="@android:drawable/alert_light_frame"
             android:backgroundTint="?android:attr/windowBackgroundFallback"
             android:fontFamily="sans-serif-black"
@@ -103,4 +104,4 @@
             app:layout_constraintVertical_bias="0.073" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
