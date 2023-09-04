@@ -51,19 +51,18 @@
         android:id="@+id/compareButton"
         android:layout_width="149dp"
         android:layout_height="48dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="406dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="165dp"
-        android:onClick="@{() -> viewModel.compareTexts(editText1)}"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="@{() -> viewModel.compareTexts(editText1.text.toString(), editText2.text.toString())}"
         android:shadowColor="#00BCD4"
         android:text="Comparar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editText2"/>
 
     <TextView
         android:id="@+id/resultTextView"
@@ -104,4 +103,5 @@
             app:layout_constraintVertical_bias="0.073" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 
